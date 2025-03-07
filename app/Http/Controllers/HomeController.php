@@ -19,8 +19,13 @@ class HomeController extends Controller
 
     public function save(Request $request)
     {
+        $request->validate([
+            'name'         => 'required',
+            'description'   => 'required'
+        ]);
+
         $data = HomeModel::create($request->all());
-        return redirect()->route('indexhomepage');
+        return redirect()->route('indexhomepage')->with('success', 'Created Successfully');
     }
 
     public function edit(string $id){
@@ -30,6 +35,12 @@ class HomeController extends Controller
     }
 
     public function update(Request $request, string $id){
+
+        $request->validate([
+            'name'         => 'required',
+            'description'   => 'required'
+        ]);
+        
         $data = HomeModel::findOrFail($id);
 
         $data->update([
@@ -37,7 +48,7 @@ class HomeController extends Controller
             'description'   => $request->description
         ]);
  
-        return redirect()->route('indexhomepage');
+        return redirect()->route('indexhomepage')->with('success', 'Update Successfully');
     }
 
     public function show(string $id)
@@ -54,7 +65,7 @@ class HomeController extends Controller
     public function destroy(HomeModel $id)
     {
         $id->delete();
-        return redirect()->route('indexhomepage');
+        return redirect()->route('indexhomepage')->with('success', 'Delete Successfully');
     }
 
 }

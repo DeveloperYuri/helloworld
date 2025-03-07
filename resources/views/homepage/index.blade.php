@@ -4,6 +4,7 @@
 <div class="container">
 
     <h3>List Data</h3>
+    @include('layouts._message')
     <a href="{{ route('indexcreate')}}" class="btn btn-primary">Create Data</a>
     <table class="table">
         <thead>
